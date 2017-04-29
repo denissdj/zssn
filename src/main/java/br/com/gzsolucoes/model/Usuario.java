@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -40,22 +41,23 @@ public class Usuario implements Serializable {
 	@Column(nullable = false)
 	private String nome;
 
-	@NotEmpty
-	@Size(max = 3)
 	@Column(nullable = false)
 	private Integer idade;
 
-	@Column(insertable = true, length = 7, unique = false, updatable = true, nullable = false, name = "sexo")
+	@Column(insertable = true, length =20, unique = false, updatable = true, nullable = false, name = "sexo")
 	@Enumerated(EnumType.STRING)
 	private EnumSexo sexo;
 
-	@Column(insertable = true, length = 7, unique = false, updatable = true, nullable = false, name = "status_usuario")
+	@Column(insertable = true, length =20, unique = false, updatable = true, nullable = false, name = "status_usuario")
 	@Enumerated(EnumType.STRING)
 	private EnumStatusUsuario statusUsuario;
 
 	@Column(insertable = true, unique = false, updatable = true, nullable = true, name = "dt_cadastro")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
+
+	@Transient
+	private String siglaSexo;
 
 	@PrePersist
 	public void validate() {
@@ -122,6 +124,16 @@ public class Usuario implements Serializable {
 	public void setDataCadastro(Date dataCadastro) {
 
 		this.dataCadastro = dataCadastro;
+	}
+
+	public String getSiglaSexo() {
+
+		return siglaSexo;
+	}
+
+	public void setSiglaSexo(String siglaSexo) {
+
+		this.siglaSexo = siglaSexo;
 	}
 
 	@Override

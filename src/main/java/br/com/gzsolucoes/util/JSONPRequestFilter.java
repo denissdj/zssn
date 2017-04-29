@@ -33,6 +33,8 @@ public class JSONPRequestFilter implements Filter {
     			+ ", Metodo = " + httpRequest.getMethod()
     			+ ", IP = " + httpRequest.getRemoteAddr() 
     			+ ", Local = " + httpRequest.getLocale());
+    	
+    	chain.doFilter(request, response);
     }
     
     @Override

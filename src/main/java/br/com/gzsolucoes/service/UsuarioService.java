@@ -14,6 +14,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
 
+import br.com.gzsolucoes.enuns.EnumSexo;
 import br.com.gzsolucoes.enuns.EnumStatusUsuario;
 import br.com.gzsolucoes.model.Usuario;
 import br.com.gzsolucoes.repository.UsuarioRepository;
@@ -30,6 +31,12 @@ public class UsuarioService {
 	private Validator validator;
 
 	public void salvar(Usuario usuario) {
+		if(usuario.getSiglaSexo() != null){
+			usuario.setSexo(EnumSexo.MASCULINO);
+			if(usuario.getSiglaSexo().equals("F")){
+				usuario.setSexo(EnumSexo.FEMININO);
+			}
+		}
 		validarUsuario(usuario);
 		repository.salvar(usuario);
 		log.info("As iInformacoes do usuario '" + usuario.getNome() + "' foram salvas.");
