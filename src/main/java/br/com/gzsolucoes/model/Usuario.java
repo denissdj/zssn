@@ -32,39 +32,101 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Sequence_usuario")
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Sequence_usuario")
+	private Long id;
+
 	@NotEmpty
 	@Size(max = 60)
 	@Column(nullable = false)
-	private String nome;	
-	
+	private String nome;
+
 	@NotEmpty
 	@Size(max = 3)
 	@Column(nullable = false)
 	private Integer idade;
-	
+
 	@Column(insertable = true, length = 7, unique = false, updatable = true, nullable = false, name = "sexo")
 	@Enumerated(EnumType.STRING)
 	private EnumSexo sexo;
-	
+
 	@Column(insertable = true, length = 7, unique = false, updatable = true, nullable = false, name = "status_usuario")
 	@Enumerated(EnumType.STRING)
 	private EnumStatusUsuario statusUsuario;
-		
+
 	@Column(insertable = true, unique = false, updatable = true, nullable = true, name = "dt_cadastro")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
-	
+
 	@PrePersist
 	public void validate() {
+
 		this.dataCadastro = new Date();
 		this.statusUsuario = EnumStatusUsuario.NAO_INFECTADO;
 	}
 
+	public Long getId() {
+
+		return id;
+	}
+
+	public void setId(Long id) {
+
+		this.id = id;
+	}
+
+	public String getNome() {
+
+		return nome;
+	}
+
+	public void setNome(String nome) {
+
+		this.nome = nome;
+	}
+
+	public Integer getIdade() {
+
+		return idade;
+	}
+
+	public void setIdade(Integer idade) {
+
+		this.idade = idade;
+	}
+
+	public EnumSexo getSexo() {
+
+		return sexo;
+	}
+
+	public void setSexo(EnumSexo sexo) {
+
+		this.sexo = sexo;
+	}
+
+	public EnumStatusUsuario getStatusUsuario() {
+
+		return statusUsuario;
+	}
+
+	public void setStatusUsuario(EnumStatusUsuario statusUsuario) {
+
+		this.statusUsuario = statusUsuario;
+	}
+
+	public Date getDataCadastro() {
+
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+
+		this.dataCadastro = dataCadastro;
+	}
+
 	@Override
 	public int hashCode() {
+
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ( ( id == null ) ? 0 : id.hashCode() );
@@ -73,6 +135,7 @@ public class Usuario implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
+
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -87,5 +150,5 @@ public class Usuario implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }
